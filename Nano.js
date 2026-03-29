@@ -171,16 +171,21 @@ Type your question or issue now:`);
     await user.save();
 
     let amountText = user.isDemo ? "$2" : "$20+";          
-    bot.editMessageText(                                   `${method} Payment
+    bot.editMessageText(
+`${method} Payment
+
 Send ${amountText} to:
-\`${addresses[method]}\`                                   
-After payment click below:`,
-      {                                                            parse_mode: "Markdown",
-        chat_id: chatId,                                           message_id: query.message.message_id,
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: "✅ I PAID", callback_data: "paid" }],
-            [{ text: "🔙 Back", callback_data: "back" }]
+\`${addresses[method]}\`
+
+After payment, click below:`,
+{
+  parse_mode: "Markdown",
+  chat_id: chatId,
+  message_id: query.message.message_id,
+  reply_markup: {
+    inline_keyboard: [
+      [{ text: "✅ I PAID", callback_data: "paid" }],
+      [{ text: "🔙 Back", callback_data: "back" }]
           ]
         }                                                        });
   } else if (data === "paid") {                                user.step = "details";
